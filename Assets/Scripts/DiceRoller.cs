@@ -23,11 +23,6 @@ public class DiceRoller : MonoBehaviour {
     public Sprite DiceImageOne;
     public Sprite DiceImageZero;
 
-    public void NewTurn()
-    {
-
-    }
-
     public void RollDice()
     {
         // In The Royal Game of Ur, there are 4 dices (tetrahedons), which have half the faces with a value of 1 and the rest of 0
