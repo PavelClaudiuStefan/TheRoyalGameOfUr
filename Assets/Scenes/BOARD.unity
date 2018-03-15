@@ -322,7 +322,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DiceValues: 
-  DiceSum: 0
   DiceDisplay: {fileID: 516735611}
   DiceImageOne: {fileID: 21300000, guid: b47a2f810dd9ca248976e3de8e3a194d, type: 3}
   DiceImageZero: {fileID: 21300000, guid: 3a4d20dc215478b4b8adf32f54b7a05f, type: 3}
@@ -1481,6 +1480,48 @@ Transform:
   m_PrefabParentObject: {fileID: 4425221657045794, guid: 9075c4f807602374cabb9c7a2812dc80,
     type: 2}
   m_PrefabInternal: {fileID: 631786210}
+--- !u!1 &644744391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 644744393}
+  - component: {fileID: 644744392}
+  m_Layer: 0
+  m_Name: StateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &644744392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 644744391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c624466cf3f4b449a1253db9d538c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentPlayerId: 0
+  DiceSum: 0
+--- !u!4 &644744393
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 644744391}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &649073081 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4425221657045794, guid: 3b79d4ce7990e28468848824ddd0647c,

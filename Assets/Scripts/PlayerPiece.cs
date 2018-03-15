@@ -9,10 +9,12 @@ public class PlayerPiece : MonoBehaviour {
 
 	bool isPoint = false;
 
-	DiceRoller diceRoller;
+	StateManager stateManager;
 
 	GameTile[] moveQueue;
 	int moveQueueIndex;
+
+	bool isAnimating = false;
 
 	Vector3 targetPosition;
 	Vector3 velocity = Vector3.zero;
@@ -23,12 +25,16 @@ public class PlayerPiece : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        diceRoller = GameObject.FindObjectOfType<DiceRoller>();
+		stateManager = GameObject.FindObjectOfType<StateManager>();
 		targetPosition = this.transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (isAnimating == false) {
+			return;
+		}
+
 		if (Vector3.Distance(new Vector3 (this.transform.position.x, targetPosition.y, this.transform.position.z), targetPosition) < smoothDistance) {
 			// If on finalTile -> lower piece
 			if ((moveQueue == null || moveQueueIndex == moveQueue.Length) && this.transform.position.y > smoothDistance) {
@@ -62,25 +68,36 @@ public class PlayerPiece : MonoBehaviour {
 			GameTile nextTile = moveQueue [moveQueueIndex];
 			if (nextTile == null) {
 				// TODO - Send piece to scoring stack
-				SetTargetPosition(this.transform.position + Vector3.right*50);
+				SetTargetPosition (this.transform.position + Vector3.right * 50);
 			} else {
 				SetTargetPosition (nextTile.transform.position);
 				moveQueueIndex++;
 			}
+		} else {
+			isAnimating = false;
+			stateManager.isDoneAnimating = true;
 		}
 	}
 
-	void SetTargetPosition(Vector3 pos) {
-		targetPosition = pos;
+	void SetTargetPosition(Vector3 position) {
+		targetPosition = position;
 		velocity = Vector3.zero;
+		isAnimating = true;
 	}
 
     void OnMouseUp()
     {
         //TODO - Get out if click is on UI
 
-        int spacesToMove = diceRoller.DiceSum;
+		if (!stateManager.isDoneRolling) {
+			return;
+		}
 
+		if (stateManager.isDoneClicking) {
+			return;
+		}
+
+        int spacesToMove = stateManager.DiceSum;
 		if (spacesToMove == 0) {
 			return;
 		}
@@ -93,8 +110,7 @@ public class PlayerPiece : MonoBehaviour {
             if (finalTile == null)
             {
                 finalTile = StartingTile;
-            } else
-            {
+            } else {
                 if (finalTile.NextTiles == null || finalTile.NextTiles.Length == 0)
                 {
                     // TODO - Implement scoring
@@ -103,8 +119,7 @@ public class PlayerPiece : MonoBehaviour {
                 }
                 else if (finalTile.NextTiles.Length > 1)
                 {
-                    // TODO - Implement nextTile choosing based on player
-                    finalTile = finalTile.NextTiles[0];
+					finalTile = finalTile.NextTiles[stateManager.CurrentPlayerId];
                 }
                 else
                 {
@@ -114,7 +129,11 @@ public class PlayerPiece : MonoBehaviour {
 			moveQueue[i] = finalTile;
         }
 
+		// TODO - Check to see if the destination is legal
+
 		moveQueueIndex = 0;
         currentTile = finalTile;
+		stateManager.isDoneClicking = true;
+		isAnimating = true;
     }
 }
