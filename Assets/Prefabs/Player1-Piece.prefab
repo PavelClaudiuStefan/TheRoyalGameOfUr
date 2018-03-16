@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4425221657045794}
-  - component: {fileID: 114801378723326026}
   - component: {fileID: 54083236400725296}
+  - component: {fileID: 114801378723326026}
   m_Layer: 0
   m_Name: Player1-Piece
   m_TagString: Untagged
@@ -154,3 +154,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab03927539cbf046b2bbaf16c565717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartingTile: {fileID: 0}
+  PlayerId: 0

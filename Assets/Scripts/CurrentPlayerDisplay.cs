@@ -6,17 +6,20 @@ using UnityEngine.UI;
 public class CurrentPlayerDisplay : MonoBehaviour {
 
 	StateManager stateManager;
+	Text displayText;
 
 	void Start () {
 		stateManager = GameObject.FindObjectOfType<StateManager>();
+		displayText = GetComponent<Text> ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (stateManager.CurrentPlayerId == 0) {
-			GetComponent<Text>().text = "Current player: One";
+			displayText.text = "Current player: " + stateManager.PlayerOneName;
 		} else {
-			GetComponent<Text>().text = "Current player: Two";
+			displayText.text = "Current player: " + stateManager.PlayerTwoName;
 		}
 	}
 }

@@ -44,8 +44,9 @@ public class DiceRoller : MonoBehaviour {
                 this.transform.GetChild(i).GetComponent<Image>().sprite = DiceImageOne;
             }
         }
-
+		//stateManager.DiceSum = 4;
 		stateManager.isDoneRolling = true;
+		stateManager.CheckLegalMoves ();
     }
 
 }
