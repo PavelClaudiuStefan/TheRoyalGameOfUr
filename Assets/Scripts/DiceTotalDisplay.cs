@@ -12,7 +12,7 @@ public class DiceTotalDisplay : MonoBehaviour {
 	}
 
 	void Update () {
-		if (stateManager.isDoneRolling == false) {
+		if (stateManager.IsDoneRolling == false) {
 			GetComponent<Text> ().text = "?";
 		} else {
 			GetComponent<Text> ().text = stateManager.DiceSum.ToString ();

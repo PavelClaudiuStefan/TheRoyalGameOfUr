@@ -8,36 +8,41 @@ public class StateManager : MonoBehaviour {
 	public string PlayerOneName;
 	public string PlayerTwoName;
 
+	AIPlayer[] PlayerAIs;
+
 	public int DiceSum;
-	public bool isDoneRolling = false;
-	public bool isDoneClicking = false;
-	public bool isDoneAnimating = false;
+	public bool IsDoneRolling = false;
+	public bool IsDoneClicking = false;
+	public int PlayingAnimations = 0;
 
 	public GameObject NoLegalMovesMessage;
 
 	void Start () {
-		
+		PlayerAIs = new AIPlayer[2];
+		PlayerAIs [0] = null;		// Human player
+		PlayerAIs [1] = new AIPlayer();		// Ai
 	}
 
 	void Update () {
-		if (isDoneRolling && isDoneClicking && isDoneAnimating) {
+		if (IsDoneRolling && IsDoneClicking && PlayingAnimations == 0) {
 			NewTurn();
+		}
+
+		if (PlayerAIs[CurrentPlayerId] != null) {
+			PlayerAIs [CurrentPlayerId].Play ();
 		}
 	}
 
 	public void NewTurn() {
-
-		isDoneRolling = false;
-		isDoneClicking = false;
-		isDoneAnimating = false;
+		IsDoneRolling = false;
+		IsDoneClicking = false;
 
 		CurrentPlayerId = (CurrentPlayerId + 1) % 2;
 	}
 
 	public void RollAgain() {
-		isDoneRolling = false;
-		isDoneClicking = false;
-		isDoneAnimating = false;
+		IsDoneRolling = false;
+		IsDoneClicking = false;
 	}
 
 	public void CheckLegalMoves() {

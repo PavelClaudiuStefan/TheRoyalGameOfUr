@@ -26,7 +26,7 @@ public class DiceRoller : MonoBehaviour {
 	/// The returned value is the number of vertices with the value of 1 pointing up
     public void RollDice()
     {
-		if (stateManager.isDoneRolling) {
+		if (stateManager.IsDoneRolling) {
 			return;
 		}
 
@@ -45,7 +45,7 @@ public class DiceRoller : MonoBehaviour {
             }
         }
 		//stateManager.DiceSum = 4;
-		stateManager.isDoneRolling = true;
+		stateManager.IsDoneRolling = true;
 		stateManager.CheckLegalMoves ();
     }
 

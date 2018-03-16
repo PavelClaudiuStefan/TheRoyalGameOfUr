@@ -724,6 +724,11 @@ Prefab:
       propertyPath: isRollAgainTile
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114021974991491378, guid: cc09abd1410bfbb4c8fa379bd05ac5af,
+        type: 2}
+      propertyPath: IsRollAgain
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc09abd1410bfbb4c8fa379bd05ac5af, type: 2}
   m_IsPrefabParent: 0
@@ -809,6 +814,11 @@ Prefab:
     - target: {fileID: 114021974991491378, guid: cc09abd1410bfbb4c8fa379bd05ac5af,
         type: 2}
       propertyPath: isRollAgainTile
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114021974991491378, guid: cc09abd1410bfbb4c8fa379bd05ac5af,
+        type: 2}
+      propertyPath: IsRollAgain
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1140,13 +1150,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 575552470}
-  m_LocalRotation: {x: 0.20082916, y: -0.677988, z: 0.20082916, w: 0.677988}
-  m_LocalPosition: {x: 7, y: 5, z: 0}
+  m_LocalRotation: {x: 0.27059805, y: -0.6532815, z: 0.27059805, w: 0.6532815}
+  m_LocalPosition: {x: 7, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1839384261}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 33, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: -90, z: 0}
 --- !u!1 &614340634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,12 +1299,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentPlayerId: 0
-  PlayerOneName: Claudiu
-  PlayerTwoName: AI / Someone
+  PlayerOneName: White
+  PlayerTwoName: Red
   DiceSum: 0
   isDoneRolling: 0
   isDoneClicking: 0
-  isDoneAnimating: 0
+  PlayingAnimations: 0
   NoLegalMovesMessage: {fileID: 999545300}
 --- !u!4 &644744393
 Transform:
@@ -1643,6 +1653,11 @@ Prefab:
     - target: {fileID: 114021974991491378, guid: cc09abd1410bfbb4c8fa379bd05ac5af,
         type: 2}
       propertyPath: isRollAgainTile
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114021974991491378, guid: cc09abd1410bfbb4c8fa379bd05ac5af,
+        type: 2}
+      propertyPath: IsRollAgain
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2939,6 +2954,11 @@ Prefab:
       propertyPath: isRollAgainTile
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114021974991491378, guid: cc09abd1410bfbb4c8fa379bd05ac5af,
+        type: 2}
+      propertyPath: IsRollAgain
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc09abd1410bfbb4c8fa379bd05ac5af, type: 2}
   m_IsPrefabParent: 0
@@ -3010,7 +3030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextTiles: []
   PlayerPiece: {fileID: 0}
-  isRollAgainTile: 0
+  IsRollAgain: 0
   IsScoringTile: 1
 --- !u!4 &1768320308
 Transform:
@@ -3143,7 +3163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dad61715bbc45445ba4b2855ad2991a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PivotAngle: 35
+  PivotAngle: 45
 --- !u!1 &1895549227
 GameObject:
   m_ObjectHideFlags: 0
@@ -3245,6 +3265,11 @@ Prefab:
       propertyPath: isRollAgainTile
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114021974991491378, guid: cc09abd1410bfbb4c8fa379bd05ac5af,
+        type: 2}
+      propertyPath: IsRollAgain
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc09abd1410bfbb4c8fa379bd05ac5af, type: 2}
   m_IsPrefabParent: 0
@@ -3329,7 +3354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextTiles: []
   PlayerPiece: {fileID: 0}
-  isRollAgainTile: 0
+  IsRollAgain: 0
   IsScoringTile: 1
 --- !u!1 &1943873050
 GameObject:
