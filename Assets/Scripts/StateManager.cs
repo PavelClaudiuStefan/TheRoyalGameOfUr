@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StateManager : MonoBehaviour {
 
 	public int CurrentPlayerId = 0;
 	public string PlayerOneName;
 	public string PlayerTwoName;
+	public int[] PlayersScores;
 
 	AIPlayer[] PlayerAIs;
 
@@ -16,14 +18,36 @@ public class StateManager : MonoBehaviour {
 	public int PlayingAnimations = 0;
 
 	public GameObject NoLegalMovesMessage;
+	public GameObject GameOverMessage;
+
+	int numberOfGamePieces = 6;
 
 	void Start () {
+		PlayersScores = new int[2];
+		PlayersScores [0] = 0;
+		PlayersScores [1] = 0;
+
 		PlayerAIs = new AIPlayer[2];
-		PlayerAIs [0] = null;		// Human player
-		PlayerAIs [1] = new AIPlayer();		// Ai
+		PlayerAIs [0] = null;				// Human player
+        //PlayerAIs [0] = new AIPlayer();
+        PlayerAIs [1] = new AIPlayer();		// Ai
 	}
 
 	void Update () {
+		// PlayerOne won
+		if (PlayersScores[0] == numberOfGamePieces) {
+			GameOverMessage.GetComponentInChildren<Text>().text = PlayerOneName + " won!!!";
+			GameOverMessage.SetActive (true);
+			return;
+		}
+
+		// PlayerTwo won
+		if (PlayersScores[1] == numberOfGamePieces) {
+			GameOverMessage.GetComponentInChildren<Text>().text = PlayerTwoName + " won!!!";
+			GameOverMessage.SetActive (true);
+			return;
+		}
+
 		if (IsDoneRolling && IsDoneClicking && PlayingAnimations == 0) {
 			NewTurn();
 		}

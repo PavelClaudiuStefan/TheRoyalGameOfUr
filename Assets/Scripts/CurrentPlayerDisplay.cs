@@ -17,9 +17,9 @@ public class CurrentPlayerDisplay : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (stateManager.CurrentPlayerId == 0) {
-			displayText.text = "Current player: " + stateManager.PlayerOneName;
+			displayText.text = "Current player: " + stateManager.PlayerOneName + " (" + stateManager.PlayersScores[0] + ")";
 		} else {
-			displayText.text = "Current player: " + stateManager.PlayerTwoName;
+			displayText.text = "Current player: " + stateManager.PlayerTwoName + " (" + stateManager.PlayersScores[1] + ")";
 		}
 	}
 }

@@ -19,7 +19,9 @@ public class DiceRoller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetKeyDown(KeyCode.R)) {
+			RollDice ();
+		}
 	}
 
 	/// Roll 4 dices (tetrahedons with half the vertices with a value of 1 and the rest of 0

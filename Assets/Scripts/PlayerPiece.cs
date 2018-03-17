@@ -21,14 +21,14 @@ public class PlayerPiece : MonoBehaviour {
 
 	Vector3 targetPosition;
 	Vector3 velocity = Vector3.zero;
-	//float smoothTimeHorizontal = 0.2f;
-	//float smoothTimeVertical = 0.1f;
+	float smoothTimeHorizontal = 0.2f;
+	float smoothTimeVertical = 0.1f;
 	float smoothDistance = 0.01f;
 	float smoothHeight = 0.5f;
 
 	// Testing - faster animations
-	float smoothTimeHorizontal = 0f;
-	float smoothTimeVertical = 0f;
+	//float smoothTimeHorizontal = 0f;
+	//float smoothTimeVertical = 0f;
 
 	void Start () {
 		stateManager = GameObject.FindObjectOfType<StateManager>();
@@ -114,27 +114,22 @@ public class PlayerPiece : MonoBehaviour {
 
 	public void Move() {
 		// Is this the correct player?
-		if (stateManager.CurrentPlayerId != PlayerId)
-		{
+		if (stateManager.CurrentPlayerId != PlayerId) {
 			return;
 		}
 
 		// Have we rolled the dice?
-		if (stateManager.IsDoneRolling == false)
-		{
+		if (stateManager.IsDoneRolling == false) {
 			// We can't move yet.
 			return;
 		}
-		if (stateManager.IsDoneClicking == true)
-		{
+		if (stateManager.IsDoneClicking == true) {
 			// We've already done a move!
 			return;
 		}
 
 		int spacesToMove = stateManager.DiceSum;
-
-		if (spacesToMove == 0)
-		{
+		if (spacesToMove == 0) {
 			return;
 		}
 
@@ -142,17 +137,10 @@ public class PlayerPiece : MonoBehaviour {
 		moveQueue = GetTilesAhead(spacesToMove);
 		GameTile finalTile = moveQueue[ moveQueue.Length-1 ];
 
-		// TODO: Check to see if the destination is legal!
-
-		if(finalTile == null)
-		{
-			// Hey, we're scoring this stone!
-			bool scoreMe = true;
-		}
-		else
-		{
-			if(CanLegallyMoveTo(finalTile) == false)
-			{
+		if (finalTile == null) {
+			return;
+		} else {
+			if(CanLegallyMoveTo(finalTile) == false) {
 				// Not allowed!
 				finalTile = CurrentTile;
 				moveQueue = null;
@@ -160,8 +148,7 @@ public class PlayerPiece : MonoBehaviour {
 			}
 
 			// If there is an enemy tile in our legal space, the we kick it out.
-			if(finalTile.PlayerPiece != null)
-			{
+			if(finalTile.PlayerPiece != null) {
 				//finalTile.PlayerStone.ReturnToStorage();
 				pieceToTakeout = finalTile.PlayerPiece;
 				pieceToTakeout.CurrentTile.PlayerPiece = null;
@@ -189,6 +176,10 @@ public class PlayerPiece : MonoBehaviour {
 		stateManager.IsDoneClicking = true;
 		this.isAnimating = true;
 		stateManager.PlayingAnimations++;
+
+		if (finalTile.IsScoringTile) {
+			stateManager.PlayersScores[PlayerId]++;
+		}
 	}
 
 	GameTile[] GetTilesAhead (int spacesToMove) {
