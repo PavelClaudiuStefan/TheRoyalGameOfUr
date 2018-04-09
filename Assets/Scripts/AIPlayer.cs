@@ -38,8 +38,12 @@ public class AIPlayer
 		}
 
 		// BasicAI - picks random piece that can legally move
-		PlayerPiece chosenPiece = legalMoves[Random.Range (0, legalMoves.Length)];
+		PlayerPiece chosenPiece = PickStoneToMove (legalMoves);
 		chosenPiece.Move ();
+	}
+
+	virtual protected PlayerPiece PickStoneToMove( PlayerPiece[] legalMoves ) {
+		return legalMoves[ Random.Range (0, legalMoves.Length) ];
 	}
 
 	// Returns list of pieces that can be moved

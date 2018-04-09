@@ -21,14 +21,14 @@ public class PlayerPiece : MonoBehaviour {
 
 	Vector3 targetPosition;
 	Vector3 velocity = Vector3.zero;
-	float smoothTimeHorizontal = 0.2f;
-	float smoothTimeVertical = 0.1f;
+	//float smoothTimeHorizontal = 0.2f;
+	//float smoothTimeVertical = 0.1f;
 	float smoothDistance = 0.01f;
 	float smoothHeight = 0.5f;
 
 	// Testing - faster animations
-	//float smoothTimeHorizontal = 0f;
-	//float smoothTimeVertical = 0f;
+	float smoothTimeHorizontal = 0f;
+	float smoothTimeVertical = 0f;
 
 	void Start () {
 		stateManager = GameObject.FindObjectOfType<StateManager>();
@@ -215,7 +215,11 @@ public class PlayerPiece : MonoBehaviour {
 		return listOfTiles;
 	}
 
-	GameTile GetTileAhead(int numberOfTiles) {
+	public GameTile GetTileAhead() {
+		return GetTileAhead (stateManager.DiceSum);
+	}
+
+	public GameTile GetTileAhead(int numberOfTiles) {
 		GameTile[] tiles = GetTilesAhead (numberOfTiles);
 
 		if (tiles == null) {

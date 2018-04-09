@@ -8,6 +8,7 @@ public class GameTile : MonoBehaviour {
 	public PlayerPiece PlayerPiece;
 	public bool IsRollAgain;
 	public bool IsScoringTile;
+	public bool IsSideline;
 
 	// Use this for initialization
 	void Start () {

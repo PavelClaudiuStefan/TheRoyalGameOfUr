@@ -17,6 +17,8 @@ public class StateManager : MonoBehaviour {
 	public bool IsDoneClicking = false;
 	public int PlayingAnimations = 0;
 
+	private float noLegalMovesDuration = 0.1f;  // How long the "No legal moves" message is displayed
+
 	public GameObject NoLegalMovesMessage;
 	public GameObject GameOverMessage;
 
@@ -29,8 +31,8 @@ public class StateManager : MonoBehaviour {
 
 		PlayerAIs = new AIPlayer[2];
 		PlayerAIs [0] = null;				// Human player
-        //PlayerAIs [0] = new AIPlayer();
-        PlayerAIs [1] = new AIPlayer();		// Ai
+        //PlayerAIs [0] = new AIPlayerV1();
+        PlayerAIs [1] = new AIPlayerV1();		// Ai
 	}
 
 	void Update () {
@@ -96,7 +98,7 @@ public class StateManager : MonoBehaviour {
 
 	IEnumerator NoLegalMove() {
 		NoLegalMovesMessage.SetActive (true);
-		yield return new WaitForSeconds (1f);
+		yield return new WaitForSeconds (noLegalMovesDuration);
 		NoLegalMovesMessage.SetActive (false);
 
 		NewTurn();
