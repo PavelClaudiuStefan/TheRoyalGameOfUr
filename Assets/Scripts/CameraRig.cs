@@ -14,27 +14,32 @@ public class CameraRig : MonoBehaviour {
 	}
 
 	void Update () {
+        if (stateManager.start)
+        {
+            float angle = transform.rotation.eulerAngles.y;
+            if (angle > 180)
+            {
+                angle -= 360f;
+            }
 
-		float angle = transform.rotation.eulerAngles.y;
-		if (angle > 180) {
-			angle -= 360f;
-		}
+            if (stateManager.CurrentPlayerId == 0)
+            {
+                angle = Mathf.SmoothDamp(
+                    angle,
+                    PivotAngle,
+                    ref pivotVelocity,
+                    0.25f);
+            }
+            else
+            {
+                angle = Mathf.SmoothDamp(
+                    angle,
+                    -PivotAngle,
+                    ref pivotVelocity,
+                    0.25f);
+            }
 
-		if (stateManager.CurrentPlayerId == 0) {
-			angle = Mathf.SmoothDamp (
-				angle,
-				PivotAngle,
-				ref pivotVelocity, 
-				0.25f);
-		} else {
-			angle = Mathf.SmoothDamp (
-				angle,
-				-PivotAngle,
-				ref pivotVelocity, 
-				0.25f);
-		}
-
-
-		transform.rotation = Quaternion.Euler (new Vector3 (0, angle, 0));
+            transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+        }
 	}
 }

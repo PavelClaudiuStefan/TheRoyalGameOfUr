@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +11,9 @@ public class StateManager : MonoBehaviour {
 	public string PlayerOneName;
 	public string PlayerTwoName;
 	public int[] PlayersScores;
+    public Text playerNameAndScore;
+    public Text averageScore;
+    public Boolean start = false;
 
 	AIPlayer[] PlayerAIs;
 
@@ -16,6 +21,7 @@ public class StateManager : MonoBehaviour {
 	public bool IsDoneRolling = false;
 	public bool IsDoneClicking = false;
 	public int PlayingAnimations = 0;
+    public Client client;
 
 	private float noLegalMovesDuration = 0.1f;  // How long the "No legal moves" message is displayed
 
@@ -31,8 +37,10 @@ public class StateManager : MonoBehaviour {
 
 		PlayerAIs = new AIPlayer[2];
 		PlayerAIs [0] = null;				// Human player
-        //PlayerAIs [0] = new AIPlayerV1();
-        PlayerAIs [1] = new AIPlayerV1();		// Ai
+        // PlayerAIs [0] = new AIPlayerV1();
+        PlayerAIs [1] = new AIPlayerV1();       // Ai
+
+        startClient();
 	}
 
 	void Update () {
@@ -55,8 +63,13 @@ public class StateManager : MonoBehaviour {
 		}
 
 		if (PlayerAIs[CurrentPlayerId] != null) {
-			PlayerAIs [CurrentPlayerId].Play ();
-		}
+            PlayerAIs[CurrentPlayerId].Play();
+        }
+
+        if (start)
+        {
+            SetScoreAndName();
+        }
 	}
 
 	public void NewTurn() {
@@ -64,7 +77,7 @@ public class StateManager : MonoBehaviour {
 		IsDoneClicking = false;
 
 		CurrentPlayerId = (CurrentPlayerId + 1) % 2;
-	}
+    }
 
 	public void RollAgain() {
 		IsDoneRolling = false;
@@ -103,4 +116,34 @@ public class StateManager : MonoBehaviour {
 
 		NewTurn();
 	}
+
+    private void startClient()
+    {
+        try
+        {
+            client = new Client();
+            client.Start();
+            client.connect();
+            client.send();
+        }
+        catch (SocketException)
+        {
+            Debug.Log("Failed to connect to server");
+        }
+    }
+
+    public void SetScoreAndName()
+    {
+        if (CurrentPlayerId == 0)
+        {
+            averageScore.gameObject.SetActive(true);
+            playerNameAndScore.text = "Current player: " + PlayerOneName + " (" + PlayersScores[0] + ")";
+            averageScore.text = "Average score: 0    ";
+        }
+        else if (CurrentPlayerId == 1)
+        {
+            playerNameAndScore.text = "Current player: " + PlayerTwoName + " (" + PlayersScores[1] + ")";
+            averageScore.gameObject.SetActive(false);
+        }
+    }
 }

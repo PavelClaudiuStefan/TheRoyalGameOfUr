@@ -27,8 +27,8 @@ public class PlayerPiece : MonoBehaviour {
 	float smoothHeight = 0.5f;
 
 	// Testing - faster animations
-	float smoothTimeHorizontal = 0f;
-	float smoothTimeVertical = 0f;
+	float smoothTimeHorizontal = 0.1f;
+	float smoothTimeVertical = 0.1f;
 
 	void Start () {
 		stateManager = GameObject.FindObjectOfType<StateManager>();
