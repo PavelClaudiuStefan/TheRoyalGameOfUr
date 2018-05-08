@@ -13,7 +13,9 @@ public class StateManager : MonoBehaviour {
 	public int[] PlayersScores;
     public Text playerNameAndScore;
     public Text averageScore;
-    public Boolean start = false;
+    public String aScore;
+    public bool start = false;
+    public bool averageScoreSet = false;
 
 	AIPlayer[] PlayerAIs;
 
@@ -37,38 +39,60 @@ public class StateManager : MonoBehaviour {
 
 		PlayerAIs = new AIPlayer[2];
 		PlayerAIs [0] = null;				// Human player
-        // PlayerAIs [0] = new AIPlayerV1();
+        //PlayerAIs [0] = new AIPlayerV1();
         PlayerAIs [1] = new AIPlayerV1();       // Ai
 
         startClient();
 	}
 
 	void Update () {
-		// PlayerOne won
-		if (PlayersScores[0] == numberOfGamePieces) {
+        // PlayerOne won
+        if (PlayersScores[0] == numberOfGamePieces && start) {
 			GameOverMessage.GetComponentInChildren<Text>().text = PlayerOneName + " won!!!";
 			GameOverMessage.SetActive (true);
+            if (client.getConnection())
+            {
+                client.send(PlayerOneName,(numberOfGamePieces-PlayersScores[1]));
+            }
+            start = false;
 			return;
 		}
 
 		// PlayerTwo won
-		if (PlayersScores[1] == numberOfGamePieces) {
+		if (PlayersScores[1] == numberOfGamePieces && start ) {
 			GameOverMessage.GetComponentInChildren<Text>().text = PlayerTwoName + " won!!!";
 			GameOverMessage.SetActive (true);
-			return;
+            if (client.getConnection())
+            {
+                client.send(PlayerOneName, (numberOfGamePieces - PlayersScores[1]));
+            }
+            start = false;
+            return;
 		}
 
-		if (IsDoneRolling && IsDoneClicking && PlayingAnimations == 0) {
+		if (IsDoneRolling && IsDoneClicking && PlayingAnimations == 0 && start) {
 			NewTurn();
 		}
 
-		if (PlayerAIs[CurrentPlayerId] != null) {
+		if (PlayerAIs[CurrentPlayerId] != null && start) {
             PlayerAIs[CurrentPlayerId].Play();
         }
 
         if (start)
         {
             SetScoreAndName();
+        }
+
+        if (averageScoreSet==true)
+        {
+            if (client.getConnection())
+            {
+                client.send(PlayerOneName, -1);
+                Debug.Log("aici1");
+                aScore = client.read();
+                Debug.Log("aici2");
+            }
+            averageScoreSet = false;
         }
 	}
 
@@ -124,7 +148,6 @@ public class StateManager : MonoBehaviour {
             client = new Client();
             client.Start();
             client.connect();
-            client.send();
         }
         catch (SocketException)
         {
@@ -138,7 +161,7 @@ public class StateManager : MonoBehaviour {
         {
             averageScore.gameObject.SetActive(true);
             playerNameAndScore.text = "Current player: " + PlayerOneName + " (" + PlayersScores[0] + ")";
-            averageScore.text = "Average score: 0    ";
+            averageScore.text = "Average score:     "+aScore;
         }
         else if (CurrentPlayerId == 1)
         {

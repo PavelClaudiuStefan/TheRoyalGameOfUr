@@ -1574,7 +1574,9 @@ MonoBehaviour:
   PlayersScores: 
   playerNameAndScore: {fileID: 103270480}
   averageScore: {fileID: 814139426}
+  aScore: 
   start: 0
+  averageScoreSet: 0
   DiceSum: 0
   IsDoneRolling: 0
   IsDoneClicking: 0

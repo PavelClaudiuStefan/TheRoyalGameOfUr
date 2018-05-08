@@ -27,6 +27,7 @@ public class CurrentPlayerDisplay : MonoBehaviour {
         startGame.SetActive(false);
         inGame.SetActive(true);
         stateManager.start = true;
+        stateManager.averageScoreSet = true;
     }
 
 }
